@@ -26,6 +26,8 @@
  *        // function to handle value updates
  *        onUpdate={(value) => setAttributes({ ids: value })}
  *    />
+ * 
+ * @version 2.0.0
  */
 
 import { __ } from '@wordpress/i18n';
