@@ -87,6 +87,8 @@
  *        allowedTypes={['image', 'video']} // or exclude a type
  *        hideInSidebar={true} // don't show this in block editor sidebar
  *    />
+ * 
+ * @version 2.0.0
  */
 
 /**
