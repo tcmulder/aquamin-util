@@ -3,3 +3,7 @@
 
 # development
 node_modules
+
+# npm (needed only for symlink locally)
+package.json
+package-lock.json
