@@ -11,6 +11,10 @@
  * them to the classList.
  *
  * Definitely a hack, but here we are :-)
+ *
+ * @param {Object} attributes Block attributes
+ * @return {string} Combined class names
+ * @version 1.0.0
  */
 import classnames from 'classnames';
 

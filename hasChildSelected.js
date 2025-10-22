@@ -5,6 +5,8 @@
  * .has-child-selected (the CSS classes Gutenberg adds) in JavaScript
  * via isSelected (an existing block prop) and useHasChildSelected (this
  * custom hook).
+ *
+ * @version 1.0.0
  */
 
 /**
