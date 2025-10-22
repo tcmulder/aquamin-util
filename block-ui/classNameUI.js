@@ -112,7 +112,7 @@ export const classNameUI = ({
 				...props.attributes,
 				[varName]: {
 					type: 'array',
-					default: props.attributes?.[varName] || [],
+					default: [],
 				},
 			};
 
@@ -238,12 +238,23 @@ export const classNameUI = ({
 			const { name, attributes } = props;
 			// if we're supposed to edit this block
 			if (isAffected(name)) {
+				/**
+				 * Extract our classes from the attributes. This is necessary because
+				 * adding attributes in the editor appears to happen multiple times,
+				 * so only the last set of classes added gets applied; so, this process
+				 * re-adds the appropriate classes on each pass.
+				 */
+				const extractedClasses = Object.entries(attributes)
+					.flatMap(([key, val]) =>
+						key.startsWith('aquaminClassName') && Array.isArray(val)
+							? val.map((obj) => obj.value)
+							: [],
+					)
+					.join(' ');
 				return (
 					<BlockListBlock
 						{...props}
-						className={classnames(
-							extractClasses(attributes, varName),
-						)}
+						className={extractedClasses}
 					/>
 				);
 			}
@@ -255,36 +266,6 @@ export const classNameUI = ({
 	);
 
 	addFilter('editor.BlockListBlock', slug, withShowModifyEdit);
-};
-
-/**
- * Extract classes
- *
- * Extract common classes from components. This is necessary because
- * adding attributes in the editor appears to happen multiple times,
- * so only the last set of classes added gets applied; so, this function
- * re-adds the appropriate classes on each pass.
- *
- * You can begin attribute names with aquaminClassName
- * (e.g. aquaminClassNameSpacing) to automatically have this function add
- * them to the classList.
- *
- * Definitely a hack, but here we are :-)
- *
- * @param {Object} attributes Block attributes
- * @param {string} prefix     Prefix to look for
- */
-export const extractClasses = (attributes, prefix = 'aquaminClassName') => {
-	// start with no classes
-	const classNames = [];
-	// get all classes applied to this component
-	for (const [key, value] of Object.entries(attributes)) {
-		if (key.startsWith(prefix) && value.length) {
-			classNames.push(...value.map((classObj) => classObj.value));
-		}
-	}
-	// return them
-	return classnames(classNames);
 };
 
 /**
