@@ -1,0 +1,5 @@
+# system
+.DS_Store
+
+# development
+node_modules
